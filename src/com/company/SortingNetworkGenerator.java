@@ -65,7 +65,7 @@ public class SortingNetworkGenerator {
                 network[i][0] = 0;
                 network[i][1] = k;
             }
-            System.out.println("Initial array at depth " + depth + ": " + Arrays.deepToString(network));
+            System.out.println("Initial network at depth " + depth + ": " + Arrays.deepToString(network));
             do {
                 if (counter == 100_000_000) {
                     ++mCounter;
