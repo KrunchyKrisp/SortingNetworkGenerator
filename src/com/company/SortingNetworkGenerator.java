@@ -52,27 +52,20 @@ public class SortingNetworkGenerator {
             k = 0;
             i = 0;
             if (pairWiseStart) {
-                for (; i < depth && k < n - 1; ++i, k += 2) {
-                    network[i][0] = k;
-                    network[i][1] = k + 1;
+                for(int j = 1; i < depth && j < n; j *= 2) {
+                    for (; i < depth && k < n - j; ++i, k += 2*j) {
+                        network[i][0] = k;
+                        network[i][1] = k + j;
+                    }
+                    k = 0;
                 }
-                k = 0;
-                for (; i < depth && k < n - 2; ++i, k += 4) {
-                    network[i][0] = k;
-                    network[i][1] = k + 2;
-                }
-                k = 0;
-                for (; i < depth && k < n - 4; ++i, k += 8) {
-                    network[i][0] = k;
-                    network[i][1] = k + 4;
-                }
-                k = 0;
             }
             for (; i < depth; ++i) {
                 k = (k % 2) + 1;
                 network[i][0] = 0;
                 network[i][1] = k;
             }
+            System.out.println(Arrays.deepToString(network));
             do {
                 if (counter == 100_000_000) {
                     ++mCounter;
