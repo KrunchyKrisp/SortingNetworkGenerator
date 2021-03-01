@@ -1,4 +1,4 @@
-package com.company;
+package network;
 
 import java.util.Arrays;
 
@@ -52,8 +52,8 @@ public class SortingNetworkGenerator {
             k = 0;
             i = 0;
             if (pairWiseStart) {
-                for(int j = 1; i < depth && j < n; j *= 2) {
-                    for (; i < depth && k < n - j; ++i, k += 2*j) {
+                for (int j = 1; i < depth && j < n; j *= 2) {
+                    for (; i < depth && k < n - j; ++i, k += 2 * j) {
                         network[i][0] = k;
                         network[i][1] = k + j;
                     }
@@ -93,12 +93,12 @@ public class SortingNetworkGenerator {
         do {
             int[] temp = Arrays.copyOf(data, n);
             executeNetwork(network, temp);
-            for (int i = 0; i < n-1; ++i) {
-                if (temp[i] > temp[i+1]) {
+            for (int i = 0; i < n - 1; ++i) {
+                if (temp[i] > temp[i + 1]) {
                     return false;
                 }
             }
-            for (int i = n-1; i >= 0; --i) {
+            for (int i = n - 1; i >= 0; --i) {
                 if (data[i] == 0) {
                     data[i] = 1;
                     break;
@@ -107,10 +107,6 @@ public class SortingNetworkGenerator {
             }
         } while (!Arrays.equals(data, end));
         return true;
-    }
-
-    public static void main(String[] args) {
-        int[][] network = networkGenerator(6,12, false);
     }
 
     public static void printTime(long start, long end) {
