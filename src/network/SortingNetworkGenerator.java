@@ -1,5 +1,6 @@
 package network;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SortingNetworkGenerator {
@@ -34,6 +35,23 @@ public class SortingNetworkGenerator {
         if (pos > 0 && Arrays.equals(network[pos], network[pos - 1])) {
             increase(network, pos, n);
         }
+    }
+
+    public static int[][] pairWiseNetworkGenerator(int n) {
+        ArrayList<int[]> network = new ArrayList<>();
+        for (int offset = 0; offset < n; ++offset) {
+            for (int i = 1; i < n; i *= 2) {
+                for (int j = offset; j < n - i; j += 2 * i) {
+                    network.add(new int[]{j, i + j});
+                }
+            }
+        }
+
+        int[][] result = new int[network.size()][2];
+        for (int i = 0; i < network.size(); ++i){
+            result[i] = network.get(i);
+        }
+        return result;
     }
 
     public static int[][] networkGenerator(int n, int depth, boolean pairWiseStart) {
@@ -74,7 +92,7 @@ public class SortingNetworkGenerator {
                     counter = 0;
                 }
                 ++counter;
-                if (iterativeBitCombinations(n, network)) {
+                if (networkTester(n, network)) {
                     System.out.println("Network Found For n = " + n + " : " + Arrays.deepToString(network));
                     System.out.println("At Depth " + depth);
                     System.out.println("At Iteration " + mCounter + "00M + " + counter);
@@ -86,7 +104,7 @@ public class SortingNetworkGenerator {
         }
     }
 
-    public static boolean iterativeBitCombinations(int n, int[][] network) {
+    public static boolean networkTester(int n, int[][] network) {
         int[] data = new int[n];
         int[] end = new int[n];
 
