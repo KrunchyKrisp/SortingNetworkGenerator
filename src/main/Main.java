@@ -15,13 +15,13 @@ public class Main {
         while (true) {
             System.out.println("Generation: (P)airWise / (B)ruteForce: ");
             input = scanner.next();
-            switch(input.toLowerCase()) {
-                case "p":
+            switch (input.toLowerCase()) {
+                case "p" -> {
                     System.out.println("N: ");
                     n = scanner.nextInt();
                     System.out.println(Arrays.toString(SortingNetworkGenerator.pairWiseNetworkGenerator(n)));
-                    break;
-                case "b":
+                }
+                case "b" -> {
                     System.out.println("N: ");
                     n = scanner.nextInt();
                     System.out.println("Starting Depth: ");
@@ -29,9 +29,11 @@ public class Main {
                     System.out.println("PairWise start (true/false): ");
                     pairWise = scanner.nextBoolean();
                     SortingNetworkGenerator.networkGenerator(n, depth, pairWise);
-                    break;
-                default:
-                    System.out.println("Incorrect Input");
+                }
+                case "q" -> {
+                    return;
+                }
+                default -> System.out.println("Incorrect Input");
             }
         }
     }

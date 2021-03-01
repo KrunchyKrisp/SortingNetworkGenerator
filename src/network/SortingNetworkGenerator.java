@@ -56,6 +56,7 @@ public class SortingNetworkGenerator {
 
     public static int[][] networkGenerator(int n, int depth, boolean pairWiseStart) {
         int[][] network, end;
+        int[] data = new int[n], dataEnd = new int[n], dataTemp = new int[n];
         long counter = 0, mCounter = 0, start = System.currentTimeMillis();
         for (; ; ++depth) {
             System.out.println("Testing Depth: " + depth);
@@ -92,7 +93,7 @@ public class SortingNetworkGenerator {
                     counter = 0;
                 }
                 ++counter;
-                if (networkTester(n, network)) {
+                if (networkTester(n, network, data, dataEnd, dataTemp)) {
                     System.out.println("Network Found For n = " + n + " : " + Arrays.deepToString(network));
                     System.out.println("At Depth " + depth);
                     System.out.println("At Iteration " + mCounter + "00M + " + counter);
@@ -104,15 +105,16 @@ public class SortingNetworkGenerator {
         }
     }
 
-    public static boolean networkTester(int n, int[][] network) {
-        int[] data = new int[n];
-        int[] end = new int[n];
-
+    public static boolean networkTester(int n, int[][] network, int[] data, int[] dataEnd, int[] dataTemp) {
+        for (int i = 0; i < n; ++i) {
+            data[i] = 0;
+        }
         do {
-            int[] temp = Arrays.copyOf(data, n);
-            executeNetwork(network, temp);
+            //int[] temp = Arrays.copyOf(data, n);
+            System.arraycopy(data, 0, dataTemp, 0, data.length);
+            executeNetwork(network, dataTemp);
             for (int i = 0; i < n - 1; ++i) {
-                if (temp[i] > temp[i + 1]) {
+                if (dataTemp[i] > dataTemp[i + 1]) {
                     return false;
                 }
             }
@@ -123,7 +125,7 @@ public class SortingNetworkGenerator {
                 }
                 data[i] = 0;
             }
-        } while (!Arrays.equals(data, end));
+        } while (!Arrays.equals(data, dataEnd));
         return true;
     }
 
